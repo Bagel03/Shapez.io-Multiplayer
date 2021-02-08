@@ -42,6 +42,6 @@ module.exports = {
      * @param {string} commitHash
      */
     cachebust(url, commitHash) {
-        return "/v/" + commitHash + "/" + url;
+        return url;//"/v/" + commitHash + "/" + url;
     },
 };
