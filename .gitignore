@@ -41,8 +41,8 @@ node_modules/
 .env.test
 
 # Buildfiles
-build
-res_built
+#build
+#res_built
 
 gulp/runnable-texturepacker.jar
 tmp_standalone_files

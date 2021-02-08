@@ -20,7 +20,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // })
 
 const webServer = createWebserver(__dirname + "/../../build/");
-webServer.listen(8080, () => {
+webServer.listen(process.env.PORT || 8080, () => {
     console.log("Listening on port 8080")
     new Manager().initialize(webServer);
 });
