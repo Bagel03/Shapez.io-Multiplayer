@@ -44,6 +44,7 @@
         "eslint": "7.1.0",
         "fastdom": "^1.0.8",
         "flatted": "^2.0.1",
+        "gulp": "^4.0.2",
         "howler": "^2.1.2",
         "html-loader": "^0.5.5",
         "ignore-loader": "^0.1.2",
