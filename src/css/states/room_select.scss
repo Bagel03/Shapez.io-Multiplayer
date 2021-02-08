@@ -1,0 +1,209 @@
+#state_RoomSelectState {
+    background: #bbc2cf center center / cover;
+
+    .logo {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+
+        flex-direction: column;
+        @include S(padding-top, 20px);
+        img {
+            @include S(width, 300px);
+        }
+    }
+
+    .maincontainer {
+        display: block;
+        align-items: center;
+        justify-content: center;
+        background: #fafafa;
+        @include S(width, 400px);
+        margin: auto;
+        @include S(padding, 5px);
+        @include S(height, 400px);
+        position: relative;
+        // min-height: calc(50% - 10px);
+
+        .createroom {
+            display: block;
+            @include S(padding, 10px);
+            background: lighten(#cdd0d4, 5);
+
+            @include S(height, 60px);
+            .createroombutton {
+                @include S(padding-top, 1px, 0);
+                display: flex;
+                margin: auto;
+                justify-content: center;
+                @include S(width, 300px);
+                @include S(height, 15px);
+                letter-spacing: 0.3em !important;
+                background: $colorGreenBright;
+            }
+
+            .mainroominfo {
+                display: flex;
+                flex-grow: 1;
+                align-items: center;
+                justify-content: space-around;
+
+                @include S(padding-top, 5px);
+                button {
+                    // @include S(padding-top, 0);
+                    @include S(width, 75px);
+                    @include S(height, 25px);
+                }
+
+                .public {
+                    background: $colorGreenBright;
+                }
+                .private {
+                    background: $colorRedBright;
+                }
+
+                .levelinfo {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .leveltext {
+                        text-align: center;
+                    }
+
+                    .roomshape {
+                        @include S(height, 40px);
+                        @include S(margin-left, 10px);
+                        canvas {
+                            object-fit: scale-down;
+                            height: 100%;
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+        .selectroom {
+            display: block;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            @include S(height, 275px);
+            overflow-y: scroll;
+            pointer-events: all;
+            .room {
+                display: flex;
+                margin: auto;
+                @include S(margin-top, 10px);
+                @include S(width, 220px);
+                @include S(height, 40px);
+
+                align-items: center;
+                justify-content: space-between;
+
+                .roomcode {
+                    display: flex;
+                    height: 100%;
+                    letter-spacing: 0.3em !important;
+                    //font-size: calc($plainTextFontSize * 2) !important;
+                    align-items: center;
+                    justify-content: center;
+                    @include Heading;
+                }
+
+                .personinfo {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .personcount {
+                        @include Heading;
+                    }
+
+                    img {
+                        @include S(height, 25px);
+                    }
+                }
+
+                .levelinfo {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .levelnum {
+                        text-align: center;
+                        @include Heading;
+                    }
+
+                    .shape {
+                        @include S(height, 35px);
+                        // @include S(margin-left, 5px);
+                        canvas {
+                            object-fit: scale-down;
+                            height: 100%;
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+
+        .entercode {
+            background: lighten(#cdd0d4, 5);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            @include S(padding, 10px);
+            position: absolute;
+            @include S(bottom, 5px);
+            margin: auto;
+            @include S(width, 380px);
+
+            button {
+                @include S(padding-top, 0);
+                @include S(width, 75px);
+                @include S(height, 25px);
+            }
+
+            input {
+                border: 0;
+                text-align: center;
+                letter-spacing: 0.3em !important;
+                text-transform: uppercase;
+                background: lighten($modalDialogBg, 10);
+                @include S(width, 200px);
+                @include S(height, 30px);
+                @include Heading;
+            }
+        }
+    }
+
+    @include DarkThemeOverride {
+        background: $darkModeGameBackground;
+
+        .maincontainer {
+            background: $darkModeControlsBackground;
+
+            .createroom {
+                background: darken($darkModeControlsBackground, 5);
+                .mainroominfo {
+                    .levelinfo {
+                        .leveltext {
+                            color: white;
+                        }
+                    }
+                }
+            }
+
+            .entercode {
+                background: darken($darkModeControlsBackground, 5);
+
+                input {
+                    background: darken($darkModeControlsBackground, 10);
+                    color: white;
+                }
+            }
+        }
+    }
+}

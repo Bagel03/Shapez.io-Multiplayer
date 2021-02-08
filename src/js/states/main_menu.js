@@ -44,12 +44,11 @@ export class MainMenuState extends GameState {
             <div class="topButtons">
                 <button class="languageChoose" data-languageicon="${this.app.settings.getLanguage()}"></button>
                 <button class="settingsButton"></button>
-            ${
-                G_IS_STANDALONE || G_IS_DEV
-                    ? `
+            ${G_IS_STANDALONE || G_IS_DEV
+                ? `
                 <button class="exitAppButton"></button>
             `
-                    : ""
+                : ""
             }
             </div>
 
@@ -68,11 +67,10 @@ export class MainMenuState extends GameState {
                 </div>
 
                 <div class="mainContainer">
-                    ${
-                        isSupportedBrowser()
-                            ? ""
-                            : `<div class="browserWarning">${T.mainMenu.browserWarning}</div>`
-                    }
+                    ${isSupportedBrowser()
+                ? ""
+                : `<div class="browserWarning">${T.mainMenu.browserWarning}</div>`
+            }
                     <div class="buttons"></div>
                 </div>
             </div>
@@ -97,9 +95,9 @@ export class MainMenuState extends GameState {
                 </div>
 
                 <div class="author">${T.mainMenu.madeBy.replace(
-                    "<author-link>",
-                    '<a class="producerLink" target="_blank">Tobias Springer</a>'
-                )}</div>
+                "<author-link>",
+                '<a class="producerLink" target="_blank">Tobias Springer</a>'
+            )}</div>
             </div>
         `;
     }
@@ -448,9 +446,10 @@ export class MainMenuState extends GameState {
             savegame
                 .readAsync()
                 .then(() => {
-                    this.moveToState("InGameState", {
-                        savegame,
-                    });
+                    this.moveToState("RoomSelectState");
+                    // this.moveToState("InGameState", {
+                    //     savegame,
+                    // });
                 })
                 .catch(err => {
                     this.dialogs.showWarning(
@@ -545,6 +544,7 @@ export class MainMenuState extends GameState {
         this.app.adProvider.showVideoAd().then(() => {
             const savegame = this.app.savegameMgr.createNewSavegame();
 
+            // this.moveToState("RoomSelectState")
             this.moveToState("InGameState", {
                 savegame,
             });
@@ -564,9 +564,10 @@ export class MainMenuState extends GameState {
 
         const savegame = this.app.savegameMgr.getSavegameById(latestInternalId);
         savegame.readAsync().then(() => {
-            this.moveToState("InGameState", {
-                savegame,
-            });
+            this.moveToState("RoomSelectState")
+            // this.moveToState("InGameState", {
+            //     savegame,
+            // });
         });
     }
 

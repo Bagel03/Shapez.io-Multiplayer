@@ -35,6 +35,7 @@ import { RegularGameMode } from "./modes/regular";
 import { ProductionAnalytics } from "./production_analytics";
 import { GameRoot } from "./root";
 import { ShapeDefinitionManager } from "./shape_definition_manager";
+import { SocketManager } from "./socket_manager";
 import { SoundProxy } from "./sound_proxy";
 import { GameTime } from "./time/game_time";
 
@@ -118,6 +119,7 @@ export class GameCore {
         root.entityMgr = new EntityManager(root);
         root.systemMgr = new GameSystemManager(root);
         root.shapeDefinitionMgr = new ShapeDefinitionManager(root);
+        root.socketManager = new SocketManager(root);
         root.hubGoals = new HubGoals(root);
         root.productionAnalytics = new ProductionAnalytics(root);
         root.buffers = new BufferMaintainer(root);
@@ -501,11 +503,11 @@ export class GameCore {
             context.fillStyle = "blue";
             context.fillText(
                 "Atlas: " +
-                    desiredAtlasScale +
-                    " / Zoom: " +
-                    round2Digits(zoomLevel) +
-                    " / Effective Zoom: " +
-                    round2Digits(effectiveZoomLevel),
+                desiredAtlasScale +
+                " / Zoom: " +
+                round2Digits(zoomLevel) +
+                " / Effective Zoom: " +
+                round2Digits(effectiveZoomLevel),
                 20,
                 600
             );
@@ -514,31 +516,31 @@ export class GameCore {
 
             context.fillText(
                 "Maintained Buffers: " +
-                    stats.rootKeys +
-                    " root keys / " +
-                    stats.subKeys +
-                    " buffers / VRAM: " +
-                    round2Digits(stats.vramBytes / (1024 * 1024)) +
-                    " MB",
+                stats.rootKeys +
+                " root keys / " +
+                stats.subKeys +
+                " buffers / VRAM: " +
+                round2Digits(stats.vramBytes / (1024 * 1024)) +
+                " MB",
                 20,
                 620
             );
             const internalStats = getBufferStats();
             context.fillText(
                 "Total Buffers: " +
-                    internalStats.bufferCount +
-                    " buffers / " +
-                    internalStats.backlogSize +
-                    " backlog / " +
-                    internalStats.backlogKeys +
-                    " keys in backlog / VRAM " +
-                    round2Digits(internalStats.vramUsage / (1024 * 1024)) +
-                    " MB / Backlog " +
-                    round2Digits(internalStats.backlogVramUsage / (1024 * 1024)) +
-                    " MB / Created " +
-                    internalStats.numCreated +
-                    " / Reused " +
-                    internalStats.numReused,
+                internalStats.bufferCount +
+                " buffers / " +
+                internalStats.backlogSize +
+                " backlog / " +
+                internalStats.backlogKeys +
+                " keys in backlog / VRAM " +
+                round2Digits(internalStats.vramUsage / (1024 * 1024)) +
+                " MB / Backlog " +
+                round2Digits(internalStats.backlogVramUsage / (1024 * 1024)) +
+                " MB / Created " +
+                internalStats.numCreated +
+                " / Reused " +
+                internalStats.numReused,
                 20,
                 640
             );

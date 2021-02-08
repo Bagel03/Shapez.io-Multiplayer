@@ -1,9 +1,10 @@
 import { globalConfig } from "../core/config";
+import { gBuildingsByCategory, gMetaBuildingRegistry } from "../core/global_registries";
 import { createLogger } from "../core/logging";
 import { STOP_PROPAGATION } from "../core/signal";
 import { round2Digits } from "../core/utils";
 import { enumDirection, enumDirectionToVector, enumInvertedDirections, Vector } from "../core/vector";
-import { getBuildingDataFromCode } from "./building_codes";
+import { gBuildingVariants, getBuildingDataFromCode } from "./building_codes";
 import { enumWireVariant } from "./components/wire";
 import { Entity } from "./entity";
 import { CHUNK_OVERLAY_RES } from "./map_chunk_view";
@@ -110,10 +111,44 @@ export class GameLogic {
             this.freeEntityAreaBeforeBuild(entity);
             this.root.map.placeStaticEntity(entity);
             this.root.entityMgr.registerEntity(entity);
+            const data = { origin, rotation, rotationVariant, originalRotation, variant, buildingID: building.id }
+            this.root.socketManager.emitPlaceItemEvent(data);
             return entity;
         }
         return null;
     }
+
+    /**
+     * Attempts to place the given building
+     * @param {object} param0
+     * @param {Vector} param0.origin
+     * @param {number} param0.rotation
+     * @param {number} param0.originalRotation
+     * @param {number} param0.rotationVariant
+     * @param {string} param0.variant
+     * @param {string} param0.buildingID
+     * @returns {Entity}
+     */
+    placeItemFromServer({ origin, rotation, rotationVariant, originalRotation, variant, buildingID }) {
+        const building = gMetaBuildingRegistry.findById(buildingID);
+        const entity = building.createEntity({
+            root: this.root,
+            origin,
+            rotation,
+            originalRotation,
+            rotationVariant,
+            variant,
+        });
+        if (this.checkCanPlaceEntity(entity)) {
+            this.freeEntityAreaBeforeBuild(entity);
+            this.root.map.placeStaticEntity(entity);
+            this.root.entityMgr.registerEntity(entity);
+
+            return entity;
+        }
+        return null;
+    }
+
 
     /**
      * Removes all entities with a RemovableMapEntityComponent which need to get
@@ -178,6 +213,20 @@ export class GameLogic {
         if (!this.canDeleteBuilding(building)) {
             return false;
         }
+        this.root.map.removeStaticEntity(building);
+        this.root.entityMgr.destroyEntity(building);
+        this.root.entityMgr.processDestroyList();
+        this.root.socketManager.emitDeleteItemEvent(building.uid)
+        return true;
+    }
+
+    deleteBuildingFromServer(buildingID) {
+        const building = this.root.entityMgr.findByUid(buildingID);
+        if (!this.canDeleteBuilding(building)) {
+            return false;
+        }
+
+        console.log("Deleting")
         this.root.map.removeStaticEntity(building);
         this.root.entityMgr.destroyEntity(building);
         this.root.entityMgr.processDestroyList();
@@ -342,7 +391,7 @@ export class GameLogic {
         return !!overlayMatrix[localPosition.x + localPosition.y * 3];
     }
 
-    g(tile, edge) {}
+    g(tile, edge) { }
 
     /**
      * Returns the acceptors and ejectors which affect the current tile

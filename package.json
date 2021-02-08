@@ -18,7 +18,8 @@
         "publishStandalone": "yarn publishOnItch && yarn publishOnSteam",
         "publishWeb": "cd gulp && yarn main.deploy.prod",
         "publish": "yarn publishStandalone && yarn publishWeb",
-        "syncTranslations": "node sync-translations.js"
+        "syncTranslations": "node sync-translations.js",
+        "multiplayer": "start chrome http://localhost:8080 && node src/server/server.js"
     },
     "dependencies": {
         "@babel/core": "^7.5.4",
@@ -55,6 +56,8 @@
         "query-string": "^6.8.1",
         "rusha": "^0.8.13",
         "serialize-error": "^3.0.0",
+        "socket.io": "^3.1.0",
+        "socket.io-client": "^3.1.1",
         "strictdom": "^1.0.1",
         "string-replace-webpack-plugin": "^0.1.3",
         "terser-webpack-plugin": "^1.1.0",

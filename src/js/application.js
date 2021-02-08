@@ -23,6 +23,7 @@ import { SavegameManager } from "./savegame/savegame_manager";
 import { AboutState } from "./states/about";
 import { ChangelogState } from "./states/changelog";
 import { InGameState } from "./states/ingame";
+import { io } from "socket.io-client";
 import { KeybindingsState } from "./states/keybindings";
 import { MainMenuState } from "./states/main_menu";
 import { MobileWarningState } from "./states/mobile_warning";
@@ -30,6 +31,7 @@ import { PreloadState } from "./states/preload";
 import { SettingsState } from "./states/settings";
 import { ShapezGameAnalytics } from "./platform/browser/game_analytics";
 import { RestrictionManager } from "./core/restriction_manager";
+import { RoomSelectState } from "./states/room_select";
 
 /**
  * @typedef {import("./platform/game_analytics").GameAnalyticsInterface} GameAnalyticsInterface
@@ -94,6 +96,8 @@ export class Application {
         /** @type {GameAnalyticsInterface} */
         this.gameAnalytics = null;
 
+        this.socket = io();
+
         this.initPlatformDependentInstances();
 
         // Track if the window is focused (only relevant for browser)
@@ -153,6 +157,7 @@ export class Application {
             KeybindingsState,
             AboutState,
             ChangelogState,
+            RoomSelectState,
         ];
 
         for (let i = 0; i < states.length; ++i) {

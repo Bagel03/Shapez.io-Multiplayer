@@ -28,6 +28,7 @@ import { DynamicTickrate } from "./dynamic_tickrate";
 import { KeyActionMapper } from "./key_action_mapper";
 import { Vector } from "../core/vector";
 import { GameMode } from "./game_mode";
+import { SocketManager } from "./socket_manager";
 /* typehints:end */
 
 const logger = createLogger("game/root");
@@ -121,6 +122,9 @@ export class GameRoot {
 
         /** @type {ShapeDefinitionManager} */
         this.shapeDefinitionMgr = null;
+
+        /** @type {SocketManager} */
+        this.socketManager = null;
 
         /** @type {ProductionAnalytics} */
         this.productionAnalytics = null;

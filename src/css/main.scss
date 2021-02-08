@@ -28,6 +28,7 @@
 @import "states/about";
 @import "states/mobile_warning";
 @import "states/changelog";
+@import "states/room_select";
 
 @import "ingame_hud/buildings_toolbar";
 @import "ingame_hud/building_placer";
@@ -56,8 +57,8 @@
 @import "ingame_hud/cat_memes";
 
 // prettier-ignore
-$elements: 
-// Base    
+$elements:
+// Base
 ingame_Canvas,
 ingame_VignetteOverlay,
 
