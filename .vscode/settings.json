@@ -4,5 +4,6 @@
     "editor.formatOnSave": true,
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
-    }
+    },
+    "search.useIgnoreFiles": false
 }
