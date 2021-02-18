@@ -96,14 +96,14 @@ export class EventManager {
     placeItem(socket, data) {
         const roomID = this.manager.roomManager.socketsToRoomIDs.get(socket);
         const room = this.manager.roomManager.rooms.get(roomID);
-
+        if (!room) return;
         room.redistributeEvent(socket, "place item", data)
     }
 
     deleteItem(socket, data) {
         const roomID = this.manager.roomManager.socketsToRoomIDs.get(socket);
         const room = this.manager.roomManager.rooms.get(roomID);
-        console.log("deleting item")
+        if (!room) return;
         room.redistributeEvent(socket, "delete item", data)
     }
 }
